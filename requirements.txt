@@ -1,0 +1,23 @@
+# Web Framework
+flask==3.1.0
+
+# Environment Variables
+python-dotenv==1.1.0
+
+# LangChain Core
+langchain==0.3.23
+langchain-core==0.3.55
+langchain-community==0.3.21
+langchain-google-genai==2.1.4
+
+# Vector Store
+chromadb==0.6.3
+
+# PDF Processing
+pypdf==5.4.0
+
+# Embeddings (runs on your RTX 3050)
+sentence-transformers==4.1.0
+
+# GPU Acceleration
+accelerate==1.6.0
