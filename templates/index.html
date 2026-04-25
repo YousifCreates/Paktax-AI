@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PakTax AI — FBR Tax Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Grid Background -->
+  <div class="grid-bg"></div>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-icon">PT</div>
+      <div>
+        <div class="logo-title">PakTax AI</div>
+        <div class="logo-sub">FBR Tax Assistant</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Features</div>
+      <a class="nav-item active" href="#">
+        <span class="nav-icon">💬</span> Tax Chat
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">📊</span> Tax Slabs
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">📄</span> Filing Guide
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🔢</span> Calculator
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <span>Connected to FBR Docs</span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Header -->
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="topbar-title">Tax Assistant</div>
+      <div class="model-badge">GPT-4o-mini + RAG</div>
+    </header>
+
+    <!-- Chat Area -->
+    <section class="chat-area" id="chatArea">
+
+      <!-- Welcome -->
+      <div class="welcome-block" id="welcomeBlock">
+        <div class="welcome-icon">🏛️</div>
+        <h1 class="welcome-title">PakTax AI</h1>
+        <p class="welcome-sub">Your intelligent FBR tax filing assistant.<br/>Ask me anything about Pakistani income tax.</p>
+        <div class="quick-chips">
+          <button class="chip" onclick="sendChip(this)">What are the tax slabs for 2024-25?</button>
+          <button class="chip" onclick="sendChip(this)">How do I file my income tax return?</button>
+          <button class="chip" onclick="sendChip(this)">Main salaried person hoon, tax kaise calculate karoon?</button>
+          <button class="chip" onclick="sendChip(this)">What is the deadline for tax filing?</button>
+        </div>
+      </div>
+
+      <!-- Messages Container -->
+      <div class="messages" id="messages"></div>
+
+    </section>
+
+    <!-- Input Area -->
+    <footer class="input-area">
+      <div class="input-wrap">
+        <textarea
+          id="userInput"
+          class="input-box"
+          placeholder="Ask about FBR tax, slabs, filing... (English / Urdu / Roman Urdu)"
+          rows="1"
+        ></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+      <div class="input-hint">Powered by LangChain · ChromaDB · FBR Official Documents</div>
+    </footer>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='js/model.js') }}"></script>
+</body>
+</html>
