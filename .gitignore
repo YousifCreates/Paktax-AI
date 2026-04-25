@@ -235,3 +235,16 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+
+# Vector Store — too large for GitHub
+chroma_db/
+
+# FBR Documents — too large for GitHub
+data/fbr_docs/
+
+# Environment files — never push these
+.env
+venv/
+__pycache__/
+*.pyc
