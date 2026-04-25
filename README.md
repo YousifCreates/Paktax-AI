@@ -295,7 +295,7 @@ All documents sourced from [fbr.gov.pk](https://fbr.gov.pk):
 ### Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/Paktax-AI.git
+git clone https://github.com/YousifCreates/Paktax-AI
 cd Paktax-AI
 ```
 
