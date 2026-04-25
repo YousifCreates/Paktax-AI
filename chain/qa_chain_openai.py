@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -21,9 +21,9 @@ def format_docs(docs):
 
 
 def get_qa_chain():
-    llm = ChatOpenAI(
-        model="gpt-4o-mini",
-        api_key=os.getenv("OPENAI_API_KEY"),
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.0-flash",
+        google_api_key=os.getenv("GOOGLE_API_KEY"),
         temperature=0.3
     )
 
@@ -36,10 +36,10 @@ STRICT RULES:
 1. Only answer questions related to Pakistani income tax, FBR policies, and tax filing.
 2. Always base your answers on the provided FBR document context below.
 3. If the answer is not clearly in the context, use the context clues available
-   and provide the best possible answer based on FBR documents. Only say you 
+   and provide the best possible answer based on FBR documents. Only say you
    could not find it if the context has absolutely no relevant information.
 4. Never guess or make up tax figures, slabs, or deadlines.
-5. Never give a final tax liability number — tell the user to verify with the 
+5. Never give a final tax liability number — tell the user to verify with the
    official FBR calculator at fbr.gov.pk.
 6. Respond in the same language the user writes in — Urdu, Roman Urdu, or English.
 7. Be warm, patient, and encouraging — many users are filing for the first time.

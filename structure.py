@@ -21,5 +21,5 @@ def generate_structure(root_dir):
 
 
 if __name__ == "__main__":
-    folder_path = "/media/yousifcreates/339b14bb-e7ae-4348-b1dd-b0b8a896b600/Portfolio/Generative AI/AI with Sir Yasir/Paktax AI/Paktax-AI"
+    folder_path = "Paktax AI/Paktax-AI"
     generate_structure(folder_path)

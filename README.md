@@ -11,6 +11,14 @@
 
 ---
 
+### By: Muhammad Yousif (YousifCreates)
+### View Profile on:
+1. [LinkedIn](https://www.linkedin.com/in/YousifCreates)
+2. [GitHub](https://github.com/YousifCreates)
+3. [WhatsApp](https://wa.me/923365295876)
+
+---
+
 ## 📌 Table of Contents
 
 - [Project Overview](#-project-overview)
@@ -305,7 +313,7 @@ cd Paktax-AI
 
 **Using Conda (Recommended):**
 ```bash
-conda create -n paktax-ai python=3.11
+conda create -n paktax-ai python=3.10
 conda activate paktax-ai
 ```
 
