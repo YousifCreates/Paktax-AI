@@ -419,16 +419,6 @@ PYTHONPATH=. python3 -m chain.qa_chain_openai
 
 ---
 
-## 📝 Assignment Information
-
-- **Project:** TaxSathi / PakTax AI
-- **Course:** Generative & Agentic AI
-- **Instructor:** Sir Yasir
-- **Deadline:** April 30, 2026
-- **Institution:** Pakistan
-
----
-
 ## 📄 License
 
 MIT License — free to use, modify, and distribute with attribution.
