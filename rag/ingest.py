@@ -4,18 +4,16 @@ from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
+from pinecone import Pinecone, ServerlessSpec
+from langchain_pinecone import PineconeVectorStore
 
-os.environ["ANONYMIZED_TELEMETRY"] = "False"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+os.environ["HF_HUB_OFFLINE"] = "1"
 
-# Load environment variables
 load_dotenv()
 
-# Paths
 DOCS_PATH = "data/fbr_docs"
-CHROMA_PATH = "chroma_db"
-
-# Detect GPU
+INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {device}")
 
@@ -40,7 +38,7 @@ def split_documents(documents):
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=100,
-        separators=["\n\n", "\n", "۔", ".", " ", ""]
+        separators=["\n\n", "\n", ".", " ", ""]
     )
     chunks = splitter.split_documents(documents)
     print(f"Total chunks created: {len(chunks)}")
@@ -48,28 +46,49 @@ def split_documents(documents):
 
 
 def create_vector_store(chunks):
-    print("Loading embedding model on GPU...")
+    print("Loading embedding model...")
     embeddings = HuggingFaceEmbeddings(
         model_name="intfloat/multilingual-e5-large",
         model_kwargs={"device": device},
         encode_kwargs={"normalize_embeddings": True}
     )
-    print("Embedding chunks and saving to ChromaDB...")
-    vector_store = Chroma.from_documents(
+
+    print("Connecting to Pinecone...")
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+
+    # Create index if it doesn't exist
+    existing_indexes = [i.name for i in pc.list_indexes()]
+    if INDEX_NAME not in existing_indexes:
+        print(f"Creating Pinecone index: {INDEX_NAME}")
+        pc.create_index(
+            name=INDEX_NAME,
+            dimension=1024,
+            metric="cosine",
+            spec=ServerlessSpec(
+                cloud="aws",
+                region="us-east-1"
+            )
+        )
+    else:
+        print(f"Index '{INDEX_NAME}' already exists. Skipping creation.")
+
+    print("Embedding chunks and uploading to Pinecone...")
+    vector_store = PineconeVectorStore.from_documents(
         documents=chunks,
         embedding=embeddings,
-        persist_directory=CHROMA_PATH
+        index_name=INDEX_NAME
     )
-    print(f"ChromaDB saved at: {CHROMA_PATH}")
+
+    print("Pinecone ingestion complete.")
     return vector_store
 
 
 if __name__ == "__main__":
-    print("=== PakTax AI — FBR Document Ingestion ===")
+    print("=== PakTax AI — Pinecone Document Ingestion ===")
     documents = load_documents()
     if not documents:
         print("No documents found in data/fbr_docs/. Please add FBR documents.")
     else:
         chunks = split_documents(documents)
         create_vector_store(chunks)
-        print("Ingestion complete. ChromaDB is ready.")
+        print("Ingestion complete. Pinecone is ready.")

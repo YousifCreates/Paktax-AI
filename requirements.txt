@@ -1,27 +1,39 @@
-# Web Framework
+# ============================================================
+#  TaxSathi — FBR AI Tax Filing Assistant
+#  Requirements for OpenRouter + Pinecone + HuggingFace Deployment
+# ============================================================
+
+# ── Web Framework ────────────────────────────────────────────
 flask==3.1.0
+python-dotenv==1.0.1
+gunicorn==23.0.0
 
-# Environment Variables
-python-dotenv==1.1.0
+# ── LangChain Core ───────────────────────────────────────────
+langchain==0.3.25
+langchain-core==0.3.59
+langchain-community==0.3.23
+langchain-openai==0.3.16
+langchain-huggingface==0.1.2
+langchain-pinecone==0.2.0
 
-# LangChain Core
-langchain==1.2.15
-langchain-core==1.3.2
-langchain-community==0.3.21
-langchain-text-splitters==0.3.8
-langchain-google-genai==2.1.4
-langchain-openai
-langchain-huggingface
-langchain-chroma
+# ── LLM — OpenRouter (via OpenAI-compatible API) ─────────────
+openai==1.78.0
 
-# Vector Store
-chromadb==0.6.3
+# ── Vector Store — Pinecone ──────────────────────────────────
+pinecone==6.0.2
 
-# PDF Processing
+# ── Embeddings — multilingual-e5-small (local, CPU) ─────────
+sentence-transformers==3.4.1
+torch==2.6.0+cpu
+torchvision==0.21.0+cpu
+torchaudio==2.6.0+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
+transformers==4.51.3
+
+# ── Document Loading ─────────────────────────────────────────
 pypdf==5.4.0
+langchain-text-splitters==0.3.8
 
-# Embeddings (runs on RTX 3050 GPU)
-sentence-transformers==4.1.0
-
-# GPU Acceleration
-accelerate==1.6.0
+# ── Utilities ────────────────────────────────────────────────
+numpy>=1.26.2,<2
+tqdm==4.67.1
